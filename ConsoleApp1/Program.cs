@@ -1,122 +1,156 @@
-﻿
-    bool exit = false;
+﻿//1
+bool run = true;
 
-    while (!exit)
+while (run)
+{
+    Console.WriteLine("Calculator: choose an option \n" +
+        "1 suma" +
+        "2 subs" +
+        "3 multiply" +
+        "4 divide" +
+        "5 power" +
+        "6 sqrt" +
+        "7 trygonometry" +
+        "8 exit");
+
+
+    Console.Write("Wybór: ");
+    string choice = Console.ReadLine();
+
+    switch (choice)
     {
-        Console.WriteLine("\nKalkulator - wybierz opcję:");
-        Console.WriteLine("1. Suma");
-        Console.WriteLine("2. Różnica");
-        Console.WriteLine("3. Iloczyn");
-        Console.WriteLine("4. Iloraz");
-        Console.WriteLine("5. Potęga");
-        Console.WriteLine("6. Pierwiastek kwadratowy");
-        Console.WriteLine("7. Funkcje trygonometryczne");
-        Console.WriteLine("8. Wyjście");
+        case "1":
+            Add();
+            break;
+        case "2":
+            Substract();
+            break;
+        case "3":
+            Multiply();
+            break;
+        case "4":
+            Divide();
+            break;
+        case "5":
+            Power();
+            break;
+        case "6":
+            Sqrt();
+            break;
+        case "7":
+            Trygonometry();
+            break;
+        case "8":
+            run = false;
+            break;
 
-        Console.Write("Wybór: ");
-        string choice = Console.ReadLine();
-
-        switch (choice)
-        {
-            case "1":
-                PerformAddition();
-                break;
-            case "2":
-                PerformSubtraction();
-                break;
-            case "3":
-                PerformMultiplication();
-                break;
-            case "4":
-                PerformDivision();
-                break;
-            case "5":
-                PerformPower();
-                break;
-            case "6":
-                PerformSquareRoot();
-                break;
-            case "7":
-                PerformTrigonometricFunctions();
-                break;
-            case "8":
-                exit = true;
-                Console.WriteLine("Zamykanie programu...");
-                break;
-            default:
-                Console.WriteLine("Nieprawidłowy wybór, spróbuj ponownie.");
-                break;
-        }
     }
 }
 
-static void PerformAddition()
+
+static void Add()
 {
-    double a = GetInput("Podaj pierwszą liczbę: ");
-    double b = GetInput("Podaj drugą liczbę: ");
-    Console.WriteLine($"Suma: {a} + {b} = {a + b}");
+    Console.WriteLine("Give your two numbers: ");
+    double a = double.Parse(Console.ReadLine());
+    double b = double.Parse(Console.ReadLine());
+    double sum = a + b;
+    Console.WriteLine("Result: " + sum);
 }
 
-static void PerformSubtraction()
+static void Substract()
 {
-    double a = GetInput("Podaj pierwszą liczbę: ");
-    double b = GetInput("Podaj drugą liczbę: ");
-    Console.WriteLine($"Różnica: {a} - {b} = {a - b}");
+    Console.WriteLine("Give your two numbers: ");
+    double a = double.Parse(Console.ReadLine());
+    double b = double.Parse(Console.ReadLine());
+    double result = a - b;
+    Console.WriteLine("Result: " + result);
 }
 
-static void PerformMultiplication()
+static void Multiply()
 {
-    double a = GetInput("Podaj pierwszą liczbę: ");
-    double b = GetInput("Podaj drugą liczbę: ");
-    Console.WriteLine($"Iloczyn: {a} * {b} = {a * b}");
+    Console.WriteLine("Give your two numbers: ");
+    double a = double.Parse(Console.ReadLine());
+    double b = double.Parse(Console.ReadLine());
+    double result = a * b;
+    Console.WriteLine("Result: " + result);
 }
 
-static void PerformDivision()
+static void Divide()
 {
-    double a = GetInput("Podaj pierwszą liczbę: ");
-    double b = GetInput("Podaj drugą liczbę: ");
+    Console.WriteLine("Give your two numbers: ");
+    double a = double.Parse(Console.ReadLine());
+    double b = double.Parse(Console.ReadLine());
+
     if (b != 0)
     {
-        Console.WriteLine($"Iloraz: {a} / {b} = {a / b}");
+        double result = a / b;
+        Console.WriteLine("Result: " + result);
     }
     else
     {
-        Console.WriteLine("Dzielenie przez zero jest niedozwolone.");
+        Console.WriteLine("Can not divide by 0.");
     }
 }
 
-static void PerformPower()
+static void Power()
 {
-    double a = GetInput("Podaj podstawę: ");
-    double b = GetInput("Podaj wykładnik: ");
-    Console.WriteLine($"Potęga: {a} ^ {b} = {Math.Pow(a, b)}");
+    Console.WriteLine("Give your two numbers: ");
+    double a = double.Parse(Console.ReadLine());
+    double b = double.Parse(Console.ReadLine());
+    double result = Math.Pow(a, b);
+    Console.WriteLine("Result: " + result);
 }
 
-static void PerformSquareRoot()
+static void Sqrt()
 {
-    double a = GetInput("Podaj liczbę: ");
-    if (a >= 0)
-    {
-        Console.WriteLine($"Pierwiastek kwadratowy: √{a} = {Math.Sqrt(a)}");
-    }
-    else
-    {
-        Console.WriteLine("Nie można obliczyć pierwiastka z liczby ujemnej.");
-    }
+    Console.WriteLine("Give me a number: ");
+    double a = double.Parse(Console.ReadLine());
+    double result = Math.Sqrt(a);
+    Console.WriteLine("Result: " + result);
 }
 
-static void PerformTrigonometricFunctions()
+static void Trygonometry()
 {
-    double angle = GetInput("Podaj kąt w radianach: ");
-    Console.WriteLine($"Sin({angle}) = {Math.Sin(angle)}");
-    Console.WriteLine($"Cos({angle}) = {Math.Cos(angle)}");
-    Console.WriteLine($"Tan({angle}) = {Math.Tan(angle)}");
+    Console.WriteLine("Give me a number: ");
+    double a = double.Parse(Console.ReadLine());
+    double sina = Math.Sin(a);
+    double cosa = Math.Cos(a);
+    Console.WriteLine("Result: " + sina + " " + cosa);
 }
 
-static double GetInput(string message)
+//2
+double[] values = new double[10];
+
+
+for (int i = 0; i < values.Length; i++)
 {
-    Console.Write(message);
-    double.TryParse(Console.ReadLine(), out double result);
-    return result;
+    Console.Write("Podaj liczbę pod indeksem: " + i);
+    double a = double.Parse(Console.ReadLine());
+    values[i] = a;
 }
+
+
+Console.WriteLine("Tablica od pierwszego do ostatniego indeksu:");
+for (int i = 0; i < values.Length; i++)
+{
+    Console.WriteLine(values[i]);
 }
+
+Console.WriteLine("Tablica od ostatniego do pierwszego indeksu:");
+for (int i = values.Length - 1; i >= 0; i--)
+{
+    Console.WriteLine(values[i]);
+}
+
+Console.WriteLine("\nElementy o nieparzystych indeksach:");
+for (int i = 1; i < values.Length; i += 2)
+{
+    Console.WriteLine($"Element {i}: {values[i]}");
+}
+
+Console.WriteLine("\nElementy o parzystych indeksach:");
+for (int i = 0; i < values.Length; i += 2)
+{
+    Console.WriteLine($"Element {i}: {values[i]}");
+}
+    
