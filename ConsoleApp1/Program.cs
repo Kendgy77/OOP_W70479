@@ -153,5 +153,4 @@ for (int i = 0; i < values.Length; i += 2)
 {
     Console.WriteLine(values[i]);
 }
-
     
