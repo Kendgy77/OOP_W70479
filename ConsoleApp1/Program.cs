@@ -142,15 +142,16 @@ for (int i = values.Length - 1; i >= 0; i--)
     Console.WriteLine(values[i]);
 }
 
-Console.WriteLine("\nElementy o nieparzystych indeksach:");
+Console.WriteLine("Elementy o nieparzystych indeksach:");
 for (int i = 1; i < values.Length; i += 2)
 {
-    Console.WriteLine($"Element {i}: {values[i]}");
+    Console.WriteLine(values[i]);
 }
 
-Console.WriteLine("\nElementy o parzystych indeksach:");
+Console.WriteLine("Elementy o parzystych indeksach:");
 for (int i = 0; i < values.Length; i += 2)
 {
-    Console.WriteLine($"Element {i}: {values[i]}");
+    Console.WriteLine(values[i]);
 }
+
     
