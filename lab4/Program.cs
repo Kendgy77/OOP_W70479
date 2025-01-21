@@ -75,6 +75,10 @@ public abstract class Osoba
     public string Nazwisko { get; private set; }
     public string Pesel { get; private set; }
 
+    public abstract string GetEducationInfo();
+    public abstract string GetFullName();
+    public abstract bool CanGoAloneToHome();
+
     public void SetFirstName(string imie)
     {
         Imie = imie;
@@ -123,9 +127,7 @@ public abstract class Osoba
         
     }
 
-    public abstract string GetEducationInfo();
-    public abstract string GetFullName();
-    public abstract bool CanGoAloneToHome();
+  
 
 }
 public class Uczen : Osoba
