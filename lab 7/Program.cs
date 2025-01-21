@@ -132,22 +132,22 @@ class zad4
                 switch (choice)
                 {
                     case "1":
-                        DisplayPopulationDifference(populationData, "India", 1970, 2000);
+                        PokazRoznice(populationData, "India", 1970, 2000);
                         break;
                     case "2":
-                        DisplayPopulationDifference(populationData, "USA", 1965, 2010);
+                        PokazRoznice(populationData, "USA", 1965, 2010);
                         break;
                     case "3":
-                        DisplayPopulationDifference(populationData, "China", 1980, 2018);
+                        PokazRoznice(populationData, "China", 1980, 2018);
                         break;
                     case "4":
-                        DisplayPopulationForYear(populationData);
+                        WybranaPopulacja(populationData);
                         break;
                     case "5":
-                        DisplayPopulationRangeDifference(populationData);
+                        ZakresLat(populationData);
                         break;
                     case "6":
-                        DisplayYearlyGrowth(populationData);
+                        WzrostPopulacji(populationData);
                         break;
                     case "7":
                         Console.WriteLine("Koniec programu.");
@@ -164,7 +164,7 @@ class zad4
         }
     }
 
-    static void DisplayPopulationDifference(Dictionary<string, Dictionary<int, long>> data, string country, int year1, int year2)
+    static void PokazRoznice(Dictionary<string, Dictionary<int, long>> data, string country, int year1, int year2)
     {
         if (data.TryGetValue(country, out var years) && years.ContainsKey(year1) && years.ContainsKey(year2))
         {
@@ -177,59 +177,51 @@ class zad4
         }
     }
 
-    static void DisplayPopulationForYear(Dictionary<string, Dictionary<int, long>> data)
+    static void WybranaPopulacja(Dictionary<string, Dictionary<int, long>> data)
     {
-        Console.Write("Podaj kraj (USA, India, China): ");
-        string country = Console.ReadLine();
+        Console.Write("Podaj kraj: ");
+        string kraj = Console.ReadLine();
         Console.Write("Podaj rok: ");
-        if (int.TryParse(Console.ReadLine(), out int year) && data.TryGetValue(country, out var years) && years.ContainsKey(year))
+        if (int.TryParse(Console.ReadLine(), out int rok) && data.ContainsKey(kraj) && data[kraj].ContainsKey(rok))
         {
-            Console.WriteLine($"Populacja {country} w roku {year}: {years[year]:N0}");
+            Console.WriteLine($"Populacja {kraj} w roku {rok}: {data[kraj][rok]}");
         }
         else
         {
-            Console.WriteLine("Brak danych dla podanego kraju lub roku.");
+            Console.WriteLine("Brak danych.");
         }
     }
 
-    static void DisplayPopulationRangeDifference(Dictionary<string, Dictionary<int, long>> data)
+    static void ZakresLat(Dictionary<string, Dictionary<int, long>> data)
     {
-        Console.Write("Podaj kraj (USA, India, China): ");
-        string country = Console.ReadLine();
+        Console.Write("Podaj kraj: ");
+        string kraj = Console.ReadLine();
         Console.Write("Podaj rok początkowy: ");
-        bool isYear1Valid = int.TryParse(Console.ReadLine(), out int year1);
-        Console.Write("Podaj rok końcowy: ");
-        bool isYear2Valid = int.TryParse(Console.ReadLine(), out int year2);
-
-        if (isYear1Valid && isYear2Valid && data.TryGetValue(country, out var years) && years.ContainsKey(year1) && years.ContainsKey(year2))
+        if (int.TryParse(Console.ReadLine(), out int rok1) &&
+            int.TryParse(Console.ReadLine(), out int rok2) &&
+            data.ContainsKey(kraj) && data[kraj].ContainsKey(rok1) && data[kraj].ContainsKey(rok2))
         {
-            long difference = years[year2] - years[year1];
-            Console.WriteLine($"Różnica populacji {country} między {year1} a {year2} wynosi: {difference:N0}");
+            long diff = data[kraj][rok2] - data[kraj][rok1];
+            Console.WriteLine($"Różnica populacji {kraj} między {rok1} a {rok2}: {diff}");
         }
         else
         {
-            Console.WriteLine("Brak danych dla podanego kraju lub lat.");
+            Console.WriteLine("Brak danych.");
         }
     }
 
-    static void DisplayYearlyGrowth(Dictionary<string, Dictionary<int, long>> data)
+    static void WzrostPopulacji(Dictionary<string, Dictionary<int, long>> data)
     {
-        foreach (var country in data.Keys)
+        foreach (var kraj in data.Keys)
         {
-            Console.WriteLine($"\nProcentowy wzrost populacji dla {country}:");
-            var years = data[country];
-            var sortedYears = years.Keys.OrderBy(y => y).ToList();
-
-            for (int i = 1; i < sortedYears.Count; i++)
+            Console.WriteLine($"\nWzrost populacji dla {kraj}:");
+            var lata = data[kraj].Keys.OrderBy(x => x).ToList();
+            for (int i = 1; i < lata.Count; i++)
             {
-                int previousYear = sortedYears[i - 1];
-                int currentYear = sortedYears[i];
-
-                long previousPopulation = years[previousYear];
-                long currentPopulation = years[currentYear];
-
-                double growth = ((double)(currentPopulation - previousPopulation) / previousPopulation) * 100;
-                Console.WriteLine($"  {previousYear} -> {currentYear}: {growth:F2}%");
+                long prev = data[kraj][lata[i - 1]];
+                long curr = data[kraj][lata[i]];
+                double growth = ((double)(curr - prev) / prev) * 100;
+                Console.WriteLine($"Rok {lata[i]}: {growth:F2}%");
             }
         }
     }
